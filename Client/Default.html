@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/angular.min.js"></script>
+</head>
+<body ng-controller="productController">
+
+    Search <input   type="text" ng-model="search.$"/>
+    <br />
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <tr ng-repeat="product in result | filter:search">
+            <td>{{product.Id}}</td>
+            <td>{{product.Name}}</td>
+            <td>{{product.Price}}</td>
+            <td>{{product.Quantity}}</td>
+        </tr>
+    </table>
+
+    
+    <script type="text/javascript">
+
+
+
+
+        var myapp = angular.module('myapp', []);
+
+
+        myapp.controller('productController', function ($scope, $http) {
+            $http({ method: 'GET', url: 'http://localhost:49640/api/product' }).then(function (response) {
+                $scope.result = response.data;
+            });
+        });
+
+    </script>
+
+</body>
+</html>
